@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+  database:
+    image: mysql/mysql-server:5.7
+    volumes:
+    - database-volume:/var/lib/db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: Metadata2019
+      MYSQL_ROOT_HOST: '%'
+    ports:
+    - "3306:3306"
+  file-storage:
+    image: metadata.io/file-storage:1.0
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/filestorage?createDatabaseIfNotExist=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Metadata2019
+      FILE_DATABASE_PATH: database/files
+    depends_on:
+    - database
+    ports:
+    - "8080:8080"
+volumes:
+  database-volume:
