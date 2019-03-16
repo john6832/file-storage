@@ -101,7 +101,7 @@ Response: name, version, download URL, content type and size.
 
 #### Upload endpoint 2
 
-`/files/upload` - POST
+`/files/upload/{fileName}` - POST (replace variables with real values)
 
 This is the second of 2 upload endpoints, this one receives a file name as a path variable and a binary body content.
 
